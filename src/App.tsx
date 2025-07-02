@@ -19,6 +19,8 @@ const LanguageWrapper = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const [isLangInitialized, setIsLangInitialized] = useState(false);
+
   useEffect(() => {
     const currentLangInPath = lang; // El idioma actual en la URL
     const i18nLang = i18n.language.split('-')[0]; // El idioma actual de i18next
@@ -27,7 +29,17 @@ const LanguageWrapper = () => {
     if (currentLangInPath && supportedLangs.includes(currentLangInPath)) {
       if (i18nLang !== currentLangInPath) {
         // console.log(`Wrapper: Changing i18n lang from ${i18nLang} to ${currentLangInPath} (from URL)`);
-        i18n.changeLanguage(currentLangInPath);
+        i18n
+          .changeLanguage(currentLangInPath)
+          .then(() => {
+            setIsLangInitialized(true); // Marcar como inicializado DESPUÉS de cambiar el idioma
+          })
+          .catch((err) => {
+            console.error(`Error changing language: ${err}`);
+          });
+      } else {
+        // i18n ya estaba sincronizado, podemos marcarlo como inicializado.
+        setIsLangInitialized(true);
       }
     }
     // Caso 2: No hay idioma en la URL (estamos en la raíz '/' o una ruta huérfana)
@@ -52,14 +64,12 @@ const LanguageWrapper = () => {
   }, [lang, i18n, navigate, location.pathname]);
 
   // Solo renderizar contenido si el idioma en la URL es válido y soportado
+  if (!isLangInitialized && lang && supportedLangs.includes(lang)) {
+    return <div>Loading language resources...</div>; // O un spinner
+  }
+
   if (lang && supportedLangs.includes(lang)) {
-    // Y también si i18next ya está sincronizado con ese idioma
-    if (i18n.language.split('-')[0] === lang) {
-      return <AppRoutesContent />;
-    } else {
-      // console.log("Wrapper: Waiting for i18n to sync with URL lang:", lang, "i18n lang:", i18n.language);
-      return <div>Loading language resources...</div>; // O un loader
-    }
+    return <AppRoutesContent />;
   }
 
   // Si estamos en proceso de redirección desde la raíz, o si el idioma no es válido,
