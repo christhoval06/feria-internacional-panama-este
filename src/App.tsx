@@ -1,5 +1,5 @@
 import { Routes, Route, useParams, useNavigate, useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useTranslation } from 'react-i18next';
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
@@ -83,14 +83,13 @@ function App() {
   useScrollToTop();
 
   return (
-    <>
+    <Suspense fallback={<div>Loading translations...</div>}>
       <ScrollToTop />
       <div className="bg-fair-light flex min-h-screen flex-col">
         <Header /> {/* Header ahora obtiene lang de params o i18n */}
         <main>
           <AnimatePresence mode="wait">
             <Routes key={location.pathname}>
-              {' '}
               {/* El key aquí es importante para AnimatePresence */}
               <Route path="/:lang/*" element={<LanguageWrapper />} />
               <Route path="/" element={<LanguageWrapper />} /> {/* Para manejar la raíz y redirigir */}
@@ -101,7 +100,7 @@ function App() {
         </main>
         <Footer />
       </div>
-    </>
+    </Suspense>
   );
 }
 export default App;

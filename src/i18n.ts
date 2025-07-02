@@ -15,7 +15,6 @@ const resources = {
 //   es: { translation: translationES },
 // };
 
-
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
@@ -25,6 +24,9 @@ i18n
     debug: import.meta.env.DEV,
     interpolation: {
       escapeValue: false, // React ya protege contra XSS
+    },
+    react: {
+      useSuspense: true,
     },
     detection: {
       order: ['path', 'navigator', 'localStorage', 'cookie', 'htmlTag'], // 'path' para detectar desde la URL /:lang/
