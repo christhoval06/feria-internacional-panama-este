@@ -1,7 +1,7 @@
-// src/components/sections/Home/FairHighlights.tsx
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { FaLeaf, FaHorseHead, FaCity, FaLightbulb } from 'react-icons/fa'; // Iconos de ejemplo
+import { type IconType, type IconBaseProps } from 'react-icons';
 
 // Importa tus imágenes (ajusta las rutas si es necesario)
 import agroImage from '../../../assets/images/highlights/agro-highlight.jpg';
@@ -12,7 +12,7 @@ import { cloneElement } from 'react';
 
 interface HighlightItem {
   id: string;
-  icon: React.ReactElement;
+  icon: React.ReactElement<IconBaseProps, IconType>;
   titleKey: string;
   descriptionKey: string;
   image: string;
@@ -23,7 +23,7 @@ interface HighlightItem {
 const highlightsData: HighlightItem[] = [
   {
     id: 'agro',
-    icon: <FaLeaf className="text-4xl mb-3" />,
+    icon: <FaLeaf className="mb-3 text-4xl" />,
     titleKey: 'highlights.agro_title',
     descriptionKey: 'highlights.agro_desc',
     image: agroImage,
@@ -32,7 +32,7 @@ const highlightsData: HighlightItem[] = [
   },
   {
     id: 'ganaderia',
-    icon: <FaHorseHead className="text-4xl mb-3" />,
+    icon: <FaHorseHead className="mb-3 text-4xl" />,
     titleKey: 'highlights.ganaderia_title',
     descriptionKey: 'highlights.ganaderia_desc',
     image: ganaderiaImage,
@@ -41,7 +41,7 @@ const highlightsData: HighlightItem[] = [
   },
   {
     id: 'empresarial',
-    icon: <FaCity className="text-4xl mb-3" />,
+    icon: <FaCity className="mb-3 text-4xl" />,
     titleKey: 'highlights.empresarial_title',
     descriptionKey: 'highlights.empresarial_desc',
     image: empresarialImage,
@@ -50,7 +50,7 @@ const highlightsData: HighlightItem[] = [
   },
   {
     id: 'emprendimiento',
-    icon: <FaLightbulb className="text-4xl mb-3" />,
+    icon: <FaLightbulb className="mb-3 text-4xl" />,
     titleKey: 'highlights.emprendimiento_title',
     descriptionKey: 'highlights.emprendimiento_desc',
     image: emprendimientoImage,
@@ -75,18 +75,18 @@ const FairHighlights = () => {
   const { t } = useTranslation();
 
   return (
-    <section className="py-12 md:py-16 bg-fair-light">
+    <section className="bg-fair-light py-12 md:py-16">
       <div className="container mx-auto px-4">
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-3xl md:text-4xl font-bold text-center text-fair-primary mb-10 md:mb-12"
+          className="text-fair-primary mb-10 text-center text-3xl font-bold md:mb-12 md:text-4xl"
         >
           {t('highlights.title')}
         </motion.h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:gap-8 lg:grid-cols-4">
           {highlightsData.map((item, index) => (
             <motion.div
               key={item.id}
@@ -95,23 +95,15 @@ const FairHighlights = () => {
               initial="hidden"
               whileInView="visible" // Anima cuando el elemento entra en el viewport
               viewport={{ once: true, amount: 0.3 }} // `once: true` para animar solo una vez, `amount` para definir qué porcentaje del elemento debe estar visible
-              className={`rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 ${item.bgColor}`}
+              className={`transform overflow-hidden rounded-xl shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl ${item.bgColor}`}
             >
-              <img
-                src={item.image}
-                alt={t(item.titleKey)}
-                className="w-full h-48 object-cover"
-              />
+              <img src={item.image} alt={t(item.titleKey)} className="h-48 w-full object-cover" />
               <div className={`p-6 ${item.textColor}`}>
-                <div className="flex justify-center mb-3">
+                <div className="mb-3 flex justify-center">
                   {cloneElement(item.icon, { className: `${item.icon.props.className} ${item.textColor}` })}
                 </div>
-                <h3 className="text-xl font-semibold mb-2 text-center">
-                  {t(item.titleKey)}
-                </h3>
-                <p className="text-sm text-center text-gray-700">
-                  {t(item.descriptionKey)}
-                </p>
+                <h3 className="mb-2 text-center text-xl font-semibold">{t(item.titleKey)}</h3>
+                <p className="text-center text-sm text-gray-700">{t(item.descriptionKey)}</p>
               </div>
             </motion.div>
           ))}

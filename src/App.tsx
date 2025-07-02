@@ -1,4 +1,4 @@
-import { Routes, Route, useParams, useNavigate, useLocation, Navigate } from 'react-router-dom';
+import { Routes, Route, useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import Header from './components/layout/Header';
@@ -12,7 +12,6 @@ import NotFoundPage from './pages/NotFoundPage';
 // Idiomas soportados y el idioma por defecto
 const supportedLangs = ['en', 'es'];
 const defaultLang = 'es';
-
 
 const LanguageWrapper = () => {
   const { lang } = useParams<{ lang: string }>();
@@ -75,21 +74,23 @@ function App() {
 
   return (
     <>
-    {/* <ScrollToTop /> */}
-    <div className="flex flex-col min-h-screen bg-fair-light">
-      <Header /> {/* Header ahora obtiene lang de params o i18n */}
-      <main>
-        <AnimatePresence mode="wait">
-          <Routes key={location.pathname}> {/* El key aquí es importante para AnimatePresence */}
-            <Route path="/:lang/*" element={<LanguageWrapper />} />
-            <Route path="/" element={<LanguageWrapper />} /> {/* Para manejar la raíz y redirigir */}
-            {/* Puedes añadir una ruta global 404 aquí si lo deseas, fuera del :lang */}
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-        </AnimatePresence>
-      </main>
-      <Footer />
-    </div>
+      <ScrollToTop />
+      <div className="bg-fair-light flex min-h-screen flex-col">
+        <Header /> {/* Header ahora obtiene lang de params o i18n */}
+        <main>
+          <AnimatePresence mode="wait">
+            <Routes key={location.pathname}>
+              {' '}
+              {/* El key aquí es importante para AnimatePresence */}
+              <Route path="/:lang/*" element={<LanguageWrapper />} />
+              <Route path="/" element={<LanguageWrapper />} /> {/* Para manejar la raíz y redirigir */}
+              {/* Puedes añadir una ruta global 404 aquí si lo deseas, fuera del :lang */}
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+          </AnimatePresence>
+        </main>
+        <Footer />
+      </div>
     </>
   );
 }

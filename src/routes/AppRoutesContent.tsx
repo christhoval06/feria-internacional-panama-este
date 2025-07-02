@@ -1,4 +1,3 @@
-// src/routes/AppRoutesContent.tsx
 import { Routes, Route, useParams, Navigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
@@ -25,13 +24,7 @@ const pageTransition = {
 };
 
 const AnimatedPage: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <motion.div
-    initial="initial"
-    animate="in"
-    exit="out"
-    variants={pageVariants}
-    transition={pageTransition}
-  >
+  <motion.div initial="initial" animate="in" exit="out" variants={pageVariants} transition={pageTransition}>
     {children}
   </motion.div>
 );
@@ -47,7 +40,7 @@ const AppRoutesContent = () => {
   }
 
   // Obtener rutas traducidas dinámicamente
-  const homePath = useTranslatedPath('home'); // Será "/"
+  // const homePath = useTranslatedPath('home'); // Será "/"
   const aboutPath = useTranslatedPath('about'); // ej. "/nosotros" o "/about-us"
   const activitiesPath = useTranslatedPath('activities');
   const calendarPath = useTranslatedPath('calendar');
@@ -58,13 +51,62 @@ const AppRoutesContent = () => {
     <Routes>
       {/* Nota: las rutas ahora son relativas al prefijo /:lang/ */}
       {/* La ruta raíz para un idioma específico */}
-      <Route index element={<AnimatedPage><HomePage /></AnimatedPage>} />
-      <Route path={aboutPath.startsWith('/') ? aboutPath.substring(1) : aboutPath} element={<AnimatedPage><AboutPage /></AnimatedPage>} />
-      <Route path={calendarPath.startsWith('/') ? calendarPath.substring(1) : calendarPath} element={<AnimatedPage><CalendarPage /></AnimatedPage>} />
-      <Route path={activitiesPath.startsWith('/') ? activitiesPath.substring(1) : activitiesPath} element={<AnimatedPage><ActivitiesPage /></AnimatedPage>} />
-      <Route path={locationPath.startsWith('/') ? locationPath.substring(1) : locationPath} element={<AnimatedPage><LocationPage /></AnimatedPage>} />
-      <Route path={contactPath.startsWith('/') ? contactPath.substring(1) : contactPath} element={<AnimatedPage><ContactPage /></AnimatedPage>} />
-      <Route path="404" element={<AnimatedPage><NotFoundPage /></AnimatedPage>} />
+      <Route
+        index
+        element={
+          <AnimatedPage>
+            <HomePage />
+          </AnimatedPage>
+        }
+      />
+      <Route
+        path={aboutPath.startsWith('/') ? aboutPath.substring(1) : aboutPath}
+        element={
+          <AnimatedPage>
+            <AboutPage />
+          </AnimatedPage>
+        }
+      />
+      <Route
+        path={calendarPath.startsWith('/') ? calendarPath.substring(1) : calendarPath}
+        element={
+          <AnimatedPage>
+            <CalendarPage />
+          </AnimatedPage>
+        }
+      />
+      <Route
+        path={activitiesPath.startsWith('/') ? activitiesPath.substring(1) : activitiesPath}
+        element={
+          <AnimatedPage>
+            <ActivitiesPage />
+          </AnimatedPage>
+        }
+      />
+      <Route
+        path={locationPath.startsWith('/') ? locationPath.substring(1) : locationPath}
+        element={
+          <AnimatedPage>
+            <LocationPage />
+          </AnimatedPage>
+        }
+      />
+      <Route
+        path={contactPath.startsWith('/') ? contactPath.substring(1) : contactPath}
+        element={
+          <AnimatedPage>
+            <ContactPage />
+          </AnimatedPage>
+        }
+      />
+      <Route
+        path="404"
+        element={
+          <AnimatedPage>
+            <NotFoundPage />
+          </AnimatedPage>
+        }
+      />
       <Route path="*" element={<Navigate to="404" replace />} />
     </Routes>
   );

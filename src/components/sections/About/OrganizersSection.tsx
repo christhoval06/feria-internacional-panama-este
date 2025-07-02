@@ -1,4 +1,3 @@
-// src/components/sections/About/OrganizersSection.tsx
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 
@@ -11,8 +10,8 @@ interface Organizer {
   nameKey: string; // Clave para el nombre de la organización
   defaultName: string;
   logoUrl: string;
-  descriptionKey?: string; // Clave para una breve descripción (opcional)
-  defaultDescription?: string;
+  descriptionKey: string; // Clave para una breve descripción (opcional)
+  defaultDescription: string;
   websiteUrl?: string;
 }
 
@@ -61,17 +60,20 @@ const OrganizersSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-10 md:mb-12"
+          className="mb-10 text-center md:mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-fair-primary">
+          <h2 className="text-fair-primary text-3xl font-bold md:text-4xl">
             {t('about.organizersSectionTitle', 'Conoce a los Impulsores')}
           </h2>
-          <p className="mt-3 text-lg text-gray-600 max-w-2xl mx-auto">
-            {t('about.organizersSectionIntro', 'Esta feria es posible gracias a la dedicación y colaboración de las siguientes entidades:')}
+          <p className="mx-auto mt-3 max-w-2xl text-lg text-gray-600">
+            {t(
+              'about.organizersSectionIntro',
+              'Esta feria es posible gracias a la dedicación y colaboración de las siguientes entidades:',
+            )}
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {organizersData.map((org, index) => (
             <motion.div
               key={org.id}
@@ -79,7 +81,7 @@ const OrganizersSection = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ delay: index * 0.1, duration: 0.4 }}
-              className="flex flex-col items-center text-center bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow"
+              className="flex flex-col items-center rounded-lg bg-white p-6 text-center shadow-lg transition-shadow hover:shadow-xl"
             >
               <a href={org.websiteUrl || '#'} target="_blank" rel="noopener noreferrer" className="mb-4">
                 <img
@@ -88,13 +90,9 @@ const OrganizersSection = () => {
                   className="h-20 w-auto object-contain transition-transform duration-300 hover:scale-105"
                 />
               </a>
-              <h3 className="text-xl font-semibold text-fair-primary mb-1">
-                {t(org.nameKey, org.defaultName)}
-              </h3>
+              <h3 className="text-fair-primary mb-1 text-xl font-semibold">{t(org.nameKey, org.defaultName)}</h3>
               {org.descriptionKey && (
-                <p className="text-sm text-gray-600">
-                  {t(org.descriptionKey, org.defaultDescription)}
-                </p>
+                <p className="text-sm text-gray-600">{t(org.descriptionKey, org.defaultDescription)}</p>
               )}
             </motion.div>
           ))}
