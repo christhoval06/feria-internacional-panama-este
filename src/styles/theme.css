@@ -1,0 +1,42 @@
+/* https://oklch.com/ */
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+@theme {
+  --font-roboto: "Roboto", sans-serif; 
+  --font-sans: "Open Sans", 'sans-serif';
+  --font-serif: Georgia, serif;
+
+  --color-fair-primary: oklch(0.436 0.148366 142.4953);
+  --color-fair-secondary: oklch(0.7516 0.1469 83.99);
+  --color-fair-accent: oklch(0.5265 0.1151 44.6);
+  --color-fair-light: oklch(0.9848 0.0252 145.38);
+  --color-fair-dark: oklch(0.3211 0 0);
+
+  --background-image-agro: url('/images/agro-highlight.jpg');
+
+  --animate-fade-in-down: fade-in-down 0.5s ease-out;
+  --animate-slide-in-up: slide-in-up 0.5s ease-out forwards;
+
+  @keyframes fade-in-down {
+    0% {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fade-in-scale {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

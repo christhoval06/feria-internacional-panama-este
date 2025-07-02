@@ -1,0 +1,40 @@
+.fullcalendar-container .fc { /* Target FullCalendar dentro de tu contenedor */
+  font-size: 0.875rem; /* Ajusta el tamaño de fuente base si es necesario */
+}
+
+.fullcalendar-container .fc .fc-toolbar-title {
+  font-size: 1.25rem; /* Ajusta el tamaño del título */
+  color: var(--color-fair-primary); /* Usar tus colores de Tailwind */
+}
+
+.fullcalendar-container .fc .fc-button {
+  background-color: var(--color-fair-primary) !important;
+  border-color: var(--color-fair-primary) !important;
+  color: white !important;
+  text-transform: capitalize;
+  padding: 0.4em 0.8em;
+  font-size: 0.8rem;
+}
+
+.fullcalendar-container .fc .fc-button:hover {
+  background-color: var(--color-fair-secondary) !important;
+  border-color: var(--color-fair-secondary) !important;
+}
+.fullcalendar-container .fc .fc-button-primary:disabled {
+  background-color: var(--color-gray-300) !important;
+  border-color: var(--color-gray-300) !important;
+}
+
+.fullcalendar-container .fc-daygrid-event {
+  font-size: 0.75rem;
+  padding: 2px 4px;
+  /* background-color: theme('colors.fair-accent') !important; */ /* Ejemplo de color de evento */
+  /* border-color: theme('colors.fair-accent') !important; */
+}
+
+.fc-list-event-title a {
+  color: var(--color-fair-primary) !important; /* Para la vista de lista */
+}
+.fc-list-event-time {
+  color: var(--color-fair-dark) !important;
+}
